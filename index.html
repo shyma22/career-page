@@ -83,18 +83,50 @@
         }
 
         .feedback-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
 
-        .feedback-form {
+
+        .feedback-intro {
             flex: 1;
             min-width: 300px;
             background-color: white;
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .feedback-intro h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feedback-intro p {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .open-modal-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 59, 113, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .open-modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 59, 113, 0.4);
         }
 
         .testimonials {
@@ -104,6 +136,83 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s ease;
+            position: relative;
+        }
+
+        .modal-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 12px 12px 0 0;
+            position: relative;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .modal-header p {
+            margin: 0.5rem 0 0 0;
+            opacity: 0.9;
+        }
+
+        .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
         }
 
         .form-group {
@@ -121,12 +230,19 @@
             width: 100%;
             padding: 0.75rem;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 3px rgba(0, 86, 164, 0.1);
         }
 
         textarea {
-            height: 150px;
+            height: 120px;
             resize: vertical;
         }
 
@@ -142,14 +258,14 @@
 
         .rating label {
             cursor: pointer;
-            width: 2rem;
-            height: 2rem;
+            width: 2.5rem;
+            height: 2.5rem;
             background-color: #ddd;
             margin-right: 0.25rem;
             display: flex;
             justify-content: center;
             align-items: center;
-            border-radius: 4px;
+            border-radius: 6px;
             color: white;
             font-weight: bold;
             transition: all 0.2s ease;
@@ -164,20 +280,44 @@
             background-color: #f0c14b;
         }
 
-        button {
-            background-color: var(--primary-color);
+        .modal-footer {
+            padding: 1.5rem 2rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border: none;
             padding: 0.75rem 1.5rem;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 1rem;
             font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0, 59, 113, 0.3);
+        }
+
+        .btn-cancel {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
             transition: background-color 0.3s ease;
         }
 
-        button:hover {
-            background-color: var(--secondary-color);
+        .btn-cancel:hover {
+            background-color: #545b62;
         }
 
         .testimonial-card {
@@ -229,10 +369,10 @@
         .submission-message {
             display: none;
             padding: 1rem;
-            margin-top: 1rem;
+            margin: 1rem 0;
             background-color: var(--success-color);
             color: white;
-            border-radius: 4px;
+            border-radius: 6px;
             text-align: center;
         }
 
@@ -259,6 +399,22 @@
             text-decoration: none;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { 
+                opacity: 0;
+                transform: translateY(-50px) scale(0.95);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         @media (max-width: 768px) {
             .feedback-section {
                 flex-direction: column;
@@ -272,7 +428,108 @@
             nav ul li {
                 margin: 0.25rem 0;
             }
+
+            .modal-content {
+                width: 95%;
+                margin: 1rem;
+            }
+
+            .modal-header {
+                padding: 1rem 1.5rem;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .modal-footer {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+            }
         }
+
+        .dropdown {
+      position: relative;
+      display: inline-block;
+      
+    }
+
+    /* Button */
+    .dropbtn {
+      background-color: #003b71;
+      color: white;
+      padding: 15px 25px;
+      font-size: 18px;
+      border: none;
+      cursor: pointer;
+      border-radius: 0.2cm;
+    }
+
+    /* Dropdown content (hidden by default) */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    /* Links inside the dropdown */
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    /* Show dropdown */
+    .show {
+      display: block;
+    }
+    .dropdown-center {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.feedback-intro {
+    flex: 1 1 100%;
+    max-width: 500px;
+    background-color: white;
+    padding: 1.5rem 1.25rem; /* Less padding */
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 0 auto;
+}
+
+.feedback-intro h3 {
+    color: var(--primary-color);
+    margin-bottom: 0.75rem; /* Reduce space below heading */
+}
+
+.feedback-intro p {
+    margin-bottom: 1rem; /* Less space under paragraph */
+    color: var(--dark-color);
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.open-modal-btn {
+    padding: 0.75rem 1.5rem; /* Smaller button size */
+    font-size: 1rem;
+}
+.feedback-intro {
+    height: auto;
+}
+
+
+      
     </style>
 </head>
 <body>
@@ -283,24 +540,55 @@
         </div>
     </header>
     
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Programs</a></li>
-            <li><a href="#">Internships</a></li>
-            <li><a href="#">Jobs</a></li>
-            <li><a href="#">Campus Lead</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+    
+
+    <div class="dropdown-center">
+        <div class="dropdown">
+          <button onclick="toggleDropdown()" class="dropbtn">Menu</button>
+          <div id="myDropdown" class="dropdown-content">
+              <a href="#">Home</a>
+              <a href="#">Programs</a>
+              <a href="#">Internships</a>
+              <a href="#">Jobs</a>
+              <a href="#">Campus Lead</a>
+              <a href="#">Contact</a>
+          </div>
+        </div>
+      </div>
+      
+
+      
     
     <div class="container">
         <h2 class="page-title">Program Feedback</h2>
         
         <div class="feedback-section">
-            <div class="feedback-form">
+            <div class="testimonials">
+                <h3>What Others Are Saying</h3>
+                <div id="testimonialsContainer">
+                    <!-- Testimonials will be added here -->
+                </div>
+            </div>
+        
+            <div class="feedback-intro">
+                <h3>Share Your Experience</h3>
+                <p>We value your input to improve our programs and services. Your feedback helps us create better learning experiences for future participants.</p>
+                <button class="open-modal-btn" id="openModalBtn">Submit Feedback</button>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
                 <h3>Submit Your Feedback</h3>
-                <p>We value your input to improve our programs and services.</p>
+                <p>Help us improve by sharing your experience</p>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            
+            <div class="modal-body">
                 <form id="feedbackForm">
                     <div class="form-group">
                         <label for="name">Full Name</label>
@@ -357,19 +645,15 @@
                         </select>
                     </div>
                     
-                    <button type="submit">Submit Feedback</button>
-                    
                     <div class="submission-message" id="submissionMessage">
                         Thank you for your valuable feedback!
                     </div>
                 </form>
             </div>
             
-            <div class="testimonials">
-                <h3>What Others Are Saying</h3>
-                <div id="testimonialsContainer">
-                    <!-- Testimonials will be added here -->
-                </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+                <button type="submit" form="feedbackForm" class="btn-submit">Submit Feedback</button>
             </div>
         </div>
     </div>
@@ -410,6 +694,43 @@
                 date: "February 10, 2025"
             }
         ];
+
+        // Modal functionality
+        const modal = document.getElementById('feedbackModal');
+        const openModalBtn = document.getElementById('openModalBtn');
+        const closeModalBtn = document.getElementById('closeModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+
+        function openModal() {
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto';
+            // Reset form when closing
+            document.getElementById('feedbackForm').reset();
+            document.getElementById('submissionMessage').style.display = 'none';
+        }
+
+        openModalBtn.addEventListener('click', openModal);
+        closeModalBtn.addEventListener('click', closeModal);
+        cancelBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
 
         // Function to create star rating display
         function createStarRating(rating) {
@@ -485,14 +806,30 @@
             const message = document.getElementById('submissionMessage');
             message.style.display = 'block';
             
-            // Reset form
-            this.reset();
-            
-            // Hide message after 3 seconds
+            // Close modal after 2 seconds
             setTimeout(() => {
-                message.style.display = 'none';
-            }, 3000);
+                closeModal();
+            }, 2000);
         });
+
+
+
+        function toggleDropdown() {
+      document.getElementById("myDropdown").classList.toggle("show");
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        const dropdowns = document.getElementsByClassName("dropdown-content");
+        for (let i = 0; i < dropdowns.length; i++) {
+          const openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
     </script>
 </body>
 </html>
